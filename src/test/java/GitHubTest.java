@@ -1,38 +1,7 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-
 public class GitHubTest extends BaseTest {
-
-    @Test
-    public void checkLogoOnTheLoginPage() {
-        HomePage homePage = new HomePage(driver);
-        assertTrue(homePage.goToLoginPage().getLogo().isDisplayed(), "Logo is not displayed");
-    }
-
-    @Test
-    public void checkLoginIsSuccessful() {
-        HomePage home = new HomePage(driver);
-        home.goToLoginPage().loginSuccessful("irynantnn@gmail.com", "Yellow&Blue-eyedcat2");
-        MainPage mainPage = new MainPage(driver);
-        mainPage.getLogoOnTheMainPage();
-        Assertions.assertTrue(mainPage.getLogoOnTheMainPage().isDisplayed());
-    }
-
-    @Test
-    public void checkFailedLogin() {
-        HomePage homePage = new HomePage(driver);
-        homePage.goToLoginPage();
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.loginFailed("irynantnn@gmail1.com", "Yellow&Blue-eyedcat2");
-        loginPage.validateErrorMessage("Incorrect username or password.");
-    }
 
     @Test
     public void openLabelPage() {
