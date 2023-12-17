@@ -1,27 +1,80 @@
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.List;
 
-public class GitHubTest {
-    private WebDriver driver;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-   @Test
-   public void gitHubTest() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\iryna.antonian\\IdeaProjects\\TestFramework\\src\\main\\resources\\Drivers\\chromedriver.exe");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.get("http://github.com");
-        driver.quit();
+
+public class GitHubTest extends BaseTest {
+
+    @Test
+    public void checkLogoOnTheLoginPage() {
+        HomePage homePage = new HomePage(driver);
+        assertTrue(homePage.goToLoginPage().getLogo().isDisplayed(), "Logo is not displayed");
     }
 
-    public static void main(String[] args) {
-        GitHubTest gitHubTest = new GitHubTest();
-        gitHubTest.gitHubTest();
+    @Test
+    public void checkLoginIsSuccessful() {
+        HomePage home = new HomePage(driver);
+        home.goToLoginPage().loginSuccessful("irynantnn@gmail.com", "Yellow&Blue-eyedcat2");
+        MainPage mainPage = new MainPage(driver);
+        mainPage.getLogoOnTheMainPage();
+        Assertions.assertTrue(mainPage.getLogoOnTheMainPage().isDisplayed());
+    }
+
+    @Test
+    public void checkFailedLogin() {
+        HomePage homePage = new HomePage(driver);
+        homePage.goToLoginPage();
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.loginFailed("irynantnn@gmail1.com", "Yellow&Blue-eyedcat2");
+        loginPage.validateErrorMessage("Incorrect username or password.");
+    }
+
+    @Test
+    public void openLabelPage() {
+        HomePage home = new HomePage(driver);
+        home.goToLoginPage().loginSuccessful("irynantnn@gmail.com", "Yellow&Blue-eyedcat2");
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToRepoPage();
+        RepoPage repoPage = new RepoPage(driver);
+        repoPage.goToIssuesPage();
+        IssuesPage issuesPage = new IssuesPage(driver);
+        issuesPage.goToLabelsPage();
+        LabelsPage labelsPage = new LabelsPage(driver);
+        Assertions.assertTrue(labelsPage.getSearchFieldLocator().isDisplayed());
+    }
+
+    @Test
+    public void createNewIssue() {
+        HomePage home = new HomePage(driver);
+        home.goToLoginPage().loginSuccessful("irynantnn@gmail.com", "Yellow&Blue-eyedcat2");
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToRepoPage();
+        RepoPage repoPage = new RepoPage(driver);
+        repoPage.goToIssuesPage();
+        IssuesPage issuesPage = new IssuesPage(driver);
+        issuesPage.goToNewIssueForm();
+        NewIssueForm newIssueForm = new NewIssueForm(driver);
+        newIssueForm.newIssueCreation("Test title", "Test description");
+        CreatedIssuePage createdIssuePage = new CreatedIssuePage(driver);
+        Assertions.assertTrue(createdIssuePage.getEditButtonLocator().isDisplayed());
+    }
+
+    @Test
+    public void openMilestonesPage() {
+        HomePage home = new HomePage(driver);
+        home.goToLoginPage().loginSuccessful("irynantnn@gmail.com", "Yellow&Blue-eyedcat2");
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToRepoPage();
+        RepoPage repoPage = new RepoPage(driver);
+        repoPage.goToIssuesPage();
+        IssuesPage issuesPage = new IssuesPage(driver);
+        issuesPage.goToMilestonesPage();
+        MilestonesPage milestonesPage = new MilestonesPage(driver);
+        Assertions.assertTrue(milestonesPage.getCreateMilestoneButtonLocator().isDisplayed());
     }
 }
