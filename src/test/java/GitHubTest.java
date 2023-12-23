@@ -1,10 +1,17 @@
+import helpers.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static helpers.ColorPrinter.printColorMessage;
 
 public class GitHubTest extends BaseTest {
 
     @Test
     public void verifyUserCanOpenLabelPage() {
+        Logger logger = LogManager.getLogger();
+        logger.info("verifyUserCanOpenLabelPage starts");
         HomePage home = new HomePage(driver);
         home.goToLoginPage().loginSuccessful("irynantnn@gmail.com", "Yellow&Blue-eyedcat2");
         MainPage mainPage = new MainPage(driver);
@@ -15,10 +22,13 @@ public class GitHubTest extends BaseTest {
         issuesPage.goToLabelsPage();
         LabelsPage labelsPage = new LabelsPage(driver);
         Assertions.assertTrue(labelsPage.getSearchFieldLocator().isDisplayed());
+        logger.info("verifyUserCanOpenLabelPage is finished");
     }
 
     @Test
     public void verifyUserCanCreateNewIssue() {
+        Logger logger = LogManager.getLogger();
+        logger.info("verifyUserCanCreateNewIssue starts");
         HomePage home = new HomePage(driver);
         home.goToLoginPage().loginSuccessful("irynantnn@gmail.com", "Yellow&Blue-eyedcat2");
         MainPage mainPage = new MainPage(driver);
@@ -31,10 +41,13 @@ public class GitHubTest extends BaseTest {
         newIssueForm.newIssueCreation("Test title", "Test description");
         CreatedIssuePage createdIssuePage = new CreatedIssuePage(driver);
         Assertions.assertTrue(createdIssuePage.getEditButtonLocator().isDisplayed());
+        logger.info("verifyUserCanCreateNewIssue is finished");
     }
 
     @Test
     public void verifyUserCanOpenMilestonesPage() {
+        Logger logger = LogManager.getLogger();
+        logger.info("verifyUserCanOpenMilestonesPage starts");
         HomePage home = new HomePage(driver);
         home.goToLoginPage().loginSuccessful("irynantnn@gmail.com", "Yellow&Blue-eyedcat2");
         MainPage mainPage = new MainPage(driver);
@@ -45,5 +58,7 @@ public class GitHubTest extends BaseTest {
         issuesPage.goToMilestonesPage();
         MilestonesPage milestonesPage = new MilestonesPage(driver);
         Assertions.assertTrue(milestonesPage.getCreateMilestoneButtonLocator().isDisplayed());
+        logger.info("verifyUserCanOpenMilestonesPage is finished");
+
     }
 }

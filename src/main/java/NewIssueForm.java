@@ -5,13 +5,13 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClick
 
 public class NewIssueForm extends BasePage {
     public NewIssueForm(WebDriver driver) {
-        super(driver);
+        super(driver, TITLE);
     }
 
     private By titleFieldLocator = By.xpath("//input[@placeholder=\"Title\"]");
     private By descriptionFieldLocator = By.xpath("//textarea[@name=\"issue[body]\"]");
     private By submitButtonLocator = By.xpath("//*[@id=\"new_issue\"]/div/div/div[1]/div/div[1]/div/div[3]/button");
-
+    private final static String TITLE = "New Issue Form";
     public CreatedIssuePage newIssueCreation(String title, String description) {
         driver.findElement(titleFieldLocator).sendKeys(title);
         driver.findElement(descriptionFieldLocator).sendKeys(description);
