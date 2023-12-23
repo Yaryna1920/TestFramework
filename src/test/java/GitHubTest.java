@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 public class GitHubTest extends BaseTest {
 
     @Test
-    public void openLabelPage() {
+    public void verifyUserCanOpenLabelPage() {
         HomePage home = new HomePage(driver);
         home.goToLoginPage().loginSuccessful("irynantnn@gmail.com", "Yellow&Blue-eyedcat2");
         MainPage mainPage = new MainPage(driver);
@@ -18,7 +18,7 @@ public class GitHubTest extends BaseTest {
     }
 
     @Test
-    public void createNewIssue() {
+    public void verifyUserCanCreateNewIssue() {
         HomePage home = new HomePage(driver);
         home.goToLoginPage().loginSuccessful("irynantnn@gmail.com", "Yellow&Blue-eyedcat2");
         MainPage mainPage = new MainPage(driver);
@@ -34,7 +34,7 @@ public class GitHubTest extends BaseTest {
     }
 
     @Test
-    public void openMilestonesPage() {
+    public void verifyUserCanOpenMilestonesPage() {
         HomePage home = new HomePage(driver);
         home.goToLoginPage().loginSuccessful("irynantnn@gmail.com", "Yellow&Blue-eyedcat2");
         MainPage mainPage = new MainPage(driver);
