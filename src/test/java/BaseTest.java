@@ -1,5 +1,4 @@
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.testng.annotations.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -10,7 +9,7 @@ public class BaseTest {
 
     protected WebDriver driver;
 
-    @BeforeEach
+    @BeforeMethod
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\iryna.antonian\\IdeaProjects\\TestFramework\\src\\main\\resources\\Drivers\\chromedriver.exe");
         driver = new ChromeDriver();
@@ -19,7 +18,7 @@ public class BaseTest {
         driver.get("https://github.com");
     }
 
-    @AfterEach
+    @AfterMethod
     public void tearDown() {
         driver.quit();
     }
