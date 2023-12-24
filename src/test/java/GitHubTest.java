@@ -1,5 +1,5 @@
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.testng.Assert;
+import org.testng.annotations.*;
 
 public class GitHubTest extends BaseTest {
 
@@ -14,7 +14,7 @@ public class GitHubTest extends BaseTest {
         IssuesPage issuesPage = new IssuesPage(driver);
         issuesPage.goToLabelsPage();
         LabelsPage labelsPage = new LabelsPage(driver);
-        Assertions.assertTrue(labelsPage.getSearchFieldLocator().isDisplayed());
+        Assert.assertTrue(labelsPage.getSearchFieldLocator().isDisplayed());
     }
 
     @Test
@@ -30,7 +30,7 @@ public class GitHubTest extends BaseTest {
         NewIssueForm newIssueForm = new NewIssueForm(driver);
         newIssueForm.newIssueCreation("Test title", "Test description");
         CreatedIssuePage createdIssuePage = new CreatedIssuePage(driver);
-        Assertions.assertTrue(createdIssuePage.getEditButtonLocator().isDisplayed());
+        Assert.assertTrue(createdIssuePage.getEditButtonLocator().isDisplayed());
     }
 
     @Test
@@ -44,6 +44,32 @@ public class GitHubTest extends BaseTest {
         IssuesPage issuesPage = new IssuesPage(driver);
         issuesPage.goToMilestonesPage();
         MilestonesPage milestonesPage = new MilestonesPage(driver);
-        Assertions.assertTrue(milestonesPage.getCreateMilestoneButtonLocator().isDisplayed());
+        Assert.assertTrue(milestonesPage.getCreateMilestoneButtonLocator().isDisplayed());
+    }
+
+    @DataProvider()
+    public Object[][] labelData() {
+        return new Object[][]{
+                {"Info", "General details"},
+                {"Spec", "Customer specific"},
+                {"Warn", "Warning"}
+        };
+    }
+
+    @Test(dataProvider = "labelData")
+    public void verifyUserCanCreateNewLabel(String labelTitle, String labelDescription) {
+        HomePage home = new HomePage(driver);
+        home.goToLoginPage().loginSuccessful("irynantnn@gmail.com", "Yellow&Blue-eyedcat2");
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToRepoPage();
+        RepoPage repoPage = new RepoPage(driver);
+        repoPage.goToIssuesPage();
+        IssuesPage issuesPage = new IssuesPage(driver);
+        issuesPage.goToLabelsPage();
+        LabelsPage labelsPage = new LabelsPage(driver);
+        labelsPage.openNewLabelForm();
+        NewLabelForm newLabelForm = new NewLabelForm(driver);
+        newLabelForm.createNewLabel(labelTitle, labelDescription);
+        Assert.assertTrue(labelsPage.getSearchFieldLocator().isDisplayed());
     }
 }
