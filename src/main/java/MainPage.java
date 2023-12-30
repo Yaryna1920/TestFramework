@@ -7,9 +7,10 @@ public class MainPage extends BasePage {
 
     By imgLocator = By.xpath("//span[@class=\"Button-label\"]/img[@class=\"avatar circle\"]");
     By linkLocator = By.linkText("Yaryna1920/HW_IA");
+    private final static String TITLE = "Main page";
 
     public MainPage(WebDriver driver) {
-        super(driver);
+        super(driver, TITLE);
     }
 
     public WebElement getLogoOnTheMainPage() {

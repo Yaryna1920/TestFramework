@@ -1,7 +1,10 @@
+import helpers.Level;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import static helpers.ColorPrinter.printColorMessage;
 
 public class LoginPage extends BasePage {
 
@@ -10,10 +13,11 @@ public class LoginPage extends BasePage {
     private By passwordFieldLocator = By.id("password");
     private By signInButtonLocator = By.xpath("//input[@value=\"Sign in\"]");
     private By errorTextLocator = By.xpath("//div[contains(text(), 'Incorrect username or password.')]");
+    private final static String TITLE = "Login page";
 
 
     public LoginPage(WebDriver driver) {
-        super(driver);
+        super(driver, TITLE);
     }
 
     public WebElement getLogo() {
@@ -29,6 +33,8 @@ public class LoginPage extends BasePage {
         driver.findElement(loginFieldLocator).sendKeys(login);
         driver.findElement(passwordFieldLocator).sendKeys(password);
         driver.findElement(signInButtonLocator).click();
+        logger.info("Successfull authorization");
+        printColorMessage("Successfull authorization", logger, Level.INFO);
         return new MainPage(driver);
     }
 

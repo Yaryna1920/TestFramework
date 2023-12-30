@@ -4,12 +4,13 @@ import org.openqa.selenium.WebElement;
 
 public class IssuesPage extends BasePage {
     public IssuesPage(WebDriver driver) {
-        super(driver);
+        super(driver, TITLE);
     }
 
     private By newIssueButtonLocator = By.xpath("//span[text()=\"New issue\"]");
     private By linkLabelsLocator = By.xpath("//*[@id=\"repo-content-turbo-frame\"]/div/div[1]/div[1]/div/nav/a[1]");
     private By linkMilestonesLocator = By.xpath("//*[@id=\"repo-content-turbo-frame\"]/div/div[1]/div[1]/div/nav/a[2]");
+    private final static String TITLE = "Issues page";
 
     public WebElement getButtonLocator() {
         return driver.findElement(newIssueButtonLocator);
@@ -17,6 +18,7 @@ public class IssuesPage extends BasePage {
 
     public NewIssueForm goToNewIssueForm() {
         driver.findElement(newIssueButtonLocator).click();
+        logger.info("New issue form is opened");
         return new NewIssueForm(driver);
     }
 
